@@ -39,7 +39,6 @@ io.on('connection', function (socket) {
       io.sockets.emit("voteCount", countVotes(votes));
     }
   });
-
 });
 
 function countVotes(votes) {
