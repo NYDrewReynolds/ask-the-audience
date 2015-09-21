@@ -35,10 +35,23 @@ io.on('connection', function (socket) {
   socket.on('message', function (channel, message) {
     if (channel === 'voteCast') {
       votes[socket.id] = message;
-      console.log(votes);
+      io.sockets.emit("voteCount", countVotes(votes));
     }
   });
 
 });
+
+function countVotes(votes) {
+  var voteCount = {
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0
+  };
+  for (socketId in votes) {
+    voteCount[votes[socketId]]++
+  }
+  return voteCount;
+}
 
 module.exports = server;
